@@ -14,4 +14,4 @@ class Preprocessor:
         """
         data = request.get_json()
         # print(f"data {np.asarray(data)}")
-        return data
+        return np.asarray(data)
