@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
 import numpy as np
-from flask import Response, stream_with_context
+from flask import Response, stream_with_context, jsonify
 from scipy.spatial import distance
 import sys
 import time
@@ -108,7 +108,13 @@ class KMeanClusterer ():
         pass
 
     def __str__(self):
-        return f"Clusters: \n{self.clusters}\n Centroids:\n{self.centroids}\n"
+        
+        return "{'clusters' :" + str(self.clusters) + ", 'centroids' :" + str(self.centroids) + "}"
+    
+    def json_repr(self):
+        return jsonify(
+            {"clusters": str(self.clusters), "centroids": str(self.centroids)}
+        )
 
     def stream(self) -> Response:
         self.step()
@@ -138,4 +144,4 @@ class KMeanClusterer ():
             #     time.sleep(1)
             #     yield self.__str__()
 
-        return Response(stream_with_context(generate()))
+        return Response(stream_with_context(generate()), mimetype="text/event-stream")

@@ -12,6 +12,7 @@ class Preprocessor:
         Returns:
             np.ndarray: [description]
         """
-        data = request.get_json()
+        # data = request.get_json()
+        # print("This is the data: " + str(data))
         # print(f"data {np.asarray(data)}")
-        return np.asarray(data)
+        return np.asarray(request)
